@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "byalkham-ami": {
+      "hosting": {
+        "byalkham-ami": [
+          "byalkham-ami"
+        ]
+      }
+    }
+  }
+}
