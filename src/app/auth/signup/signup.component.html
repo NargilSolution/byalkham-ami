@@ -1,0 +1,198 @@
+<section class="signup-form" *ngIf="isAuth">
+    
+    <h2>Нэвтэрсэн хэрэглэгч шинээр бүртгүүлэх шаардлагагүй</h2>
+
+</section>
+
+<section class="signup-form" *ngIf="!isAuth">
+    <form fxLayout="column" fxLayoutAlign="center center" #f="ngForm" fxLayoutGap="10px" (ngSubmit)="onSubmit(f)">
+        <h2>Шинэ хэрэглэгчийн бүртгэл</h2>
+        <div class="welcome" fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap.gt-xs="20px" fxLayoutAlign="center center">
+            <mat-form-field>
+                <input 
+                    type="text" 
+                    matInput 
+                    placeholder="Овог" 
+                    ngModel 
+                    name="lastName"
+                    required
+                    #lastNameInput="ngModel">
+                <mat-error *ngIf="lastNameInput.hasError('required')">Овог хоосон байж болохгүй</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <input 
+                    type="text" 
+                    matInput 
+                    placeholder="Нэр" 
+                    ngModel 
+                    name="firstName"
+                    required
+                    #firstNameInput="ngModel">
+                <mat-error *ngIf="firstNameInput.hasError('required')">Нэр хоосон байж болохгүй</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="welcome" fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap.gt-xs="20px" fxLayoutAlign="center center">
+            <mat-form-field hintLabel="Давхардахгүй, дууддаг нэр байна.">
+                <input 
+                    type="text"
+                    matInput 
+                    placeholder="Хэрэглэгчийн нэр" 
+                    ngModel 
+                    name="nickname"
+                    required
+                    #nicknameInput="ngModel">
+                <mat-error *ngIf="nicknameInput.hasError('required')">Харагдах нэр хоосон байж болохгүй</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Хэрэлэгчийн төрөл</mat-label>
+                <mat-select 
+                    matInput 
+                    placeholder="Албан тушаал" 
+                    ngModel
+                    name="userType"
+                    required
+                    #typeSelection="ngModel">
+                    <mat-option value="Багш дасалжуулагч">Багш дасалжуулагч</mat-option>
+                    <mat-option value="Сонирхогч">Сонирхогч</mat-option>
+                    <mat-option value="Клубын гишүүн">Клубын гишүүн</mat-option>
+                </mat-select>
+                <mat-error *ngIf="typeSelection.hasError('required')">Албан тушаал хоосон байж болохгүй</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="welcome" fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap.gt-xs="20px" fxLayoutAlign="center center">
+            <mat-form-field hintLabel="8 цифр байна.">
+                <input 
+                    type="number" 
+                    matInput 
+                    placeholder="Утасны дугаар" 
+                    ngModel 
+                    name="phone"
+                    [required]="typeSelection.value == 'Багш дасалжуулагч'"
+                    #phoneInput="ngModel">
+                <mat-error *ngIf="phoneInput.hasError('required')">Дугаар хоосон байж болохгүй</mat-error>
+                <mat-hint align="end">{{ phoneInput.value?.toString().length }} /8</mat-hint>
+            </mat-form-field>
+            <mat-form-field>
+                <input 
+                    type="email" 
+                    matInput 
+                    placeholder="Мэйл хаяг"
+                    ngModel
+                    name="email"
+                    email
+                    [required]="typeSelection.value == 'Багш дасалжуулагч'"
+                    #emailInput="ngModel">
+                <mat-error *ngIf="emailInput.hasError('required')">Мэйл хаяг хоосон байж болохгүй</mat-error>
+                <mat-error *ngIf="!emailInput.hasError('required')">Мэйл буруу байна</mat-error>
+            </mat-form-field>
+        </div>
+        <p *ngIf="typeSelection.value == 'Клубын гишүүн'">Шаардлагатай үед холбоо барих 2 утасны дугаар оруулна уу</p>
+        <div class="welcome" fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap.gt-xs="20px" fxLayoutAlign="center center" *ngIf="typeSelection.value == 'Клубын гишүүн'">
+            <mat-form-field hintLabel="8 цифр байна.">
+                <input 
+                    type="number" 
+                    matInput 
+                    placeholder="Утасны дугаар" 
+                    ngModel 
+                    name="contact1"
+                    #contact1Input="ngModel">
+                <mat-error *ngIf="contact1Input.hasError('required')">Дугаар хоосон байж болохгүй</mat-error>
+                <mat-hint align="end">{{ phoneInput.value?.toString().length }} /8</mat-hint>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Таны хэн болох</mat-label>
+                <mat-select 
+                    matInput 
+                    placeholder="Албан тушаал" 
+                    ngModel
+                    name="person1"
+                    required
+                    #person1Selection="ngModel">
+                    <mat-option value="Аав">Аав</mat-option>
+                    <mat-option value="Ээж">Ээж</mat-option>
+                    <mat-option value="Өвөө">Өвөө</mat-option>
+                    <mat-option value="Эмээ">Эмээ</mat-option>
+                    <mat-option value="Ах">Ах</mat-option>
+                    <mat-option value="Эгч">Эгч</mat-option>
+                    <mat-option value="Бусад">Бусад</mat-option>
+                </mat-select>
+                <mat-error *ngIf="person1Selection.hasError('required')">Хэн болохыг сонгоогүй байна</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="welcome" fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap.gt-xs="20px" fxLayoutAlign="center center" *ngIf="typeSelection.value == 'Клубын гишүүн'">
+            <mat-form-field hintLabel="8 цифр байна.">
+                <input 
+                    type="number" 
+                    matInput 
+                    placeholder="Утасны дугаар" 
+                    ngModel 
+                    name="contact2"
+                    required
+                    #contact2Input="ngModel">
+                <mat-error *ngIf="contact2Input.hasError('required')">Дугаар хоосон байж болохгүй</mat-error>
+                <mat-hint align="end">{{ phoneInput.value?.toString().length }} /8</mat-hint>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Таны хэн болох</mat-label>
+                <mat-select 
+                    matInput 
+                    placeholder="Албан тушаал" 
+                    ngModel
+                    name="person2"
+                    required
+                    #person2Selection="ngModel">
+                    <mat-option value="Аав">Аав</mat-option>
+                    <mat-option value="Ээж">Ээж</mat-option>
+                    <mat-option value="Өвөө">Өвөө</mat-option>
+                    <mat-option value="Эмээ">Эмээ</mat-option>
+                    <mat-option value="Ах">Ах</mat-option>
+                    <mat-option value="Эгч">Эгч</mat-option>
+                    <mat-option value="Бусад">Бусад</mat-option>
+                </mat-select>
+                <mat-error *ngIf="person2Selection.hasError('required')">Хэн болохыг сонгоогүй байна</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="welcome" fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap.gt-xs="20px" fxLayoutAlign="center center">
+            <mat-form-field hintLabel="6-с багагүй тэмдэгтүүд байна.">
+                <input 
+                    type="password" 
+                    matInput 
+                    placeholder="Нэвтрэх нууц үг" 
+                    ngModel 
+                    name="password"
+                    required
+                    minlength="6"
+                    #pwInput="ngModel">
+                <mat-error>Has to be at least 6 characters long.</mat-error>
+                <mat-hint align="end">{{ pwInput.value?.length}} /6</mat-hint>
+            </mat-form-field>
+            <mat-form-field hintLabel="Давтан оруулна уу.">
+                <input 
+                    type="password" 
+                    matInput 
+                    placeholder="Нууц үг баталгаажуулалт" 
+                    ngModel 
+                    name="passwordConfirm"
+                    required
+                    minlength="6"
+                    #pwConfirmInput="ngModel">
+                <mat-error *ngIf="pwInput != pwConfirmInput">Нууц өөр байна</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="welcome" fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap.gt-xs="20px" fxLayoutAlign="center center">
+            <mat-form-field>
+                <input 
+                    type="text" 
+                    matInput 
+                    placeholder="Нууц үг сануулах үг" 
+                    ngModel 
+                    name="hint"
+                    required
+                    #messageInput="ngModel">
+                <mat-error *ngIf="messageInput.hasError('required')">Тайлбар хоосон байж болохгүй</mat-error>
+            </mat-form-field>
+            <mat-checkbox ngModel name="agree" color="primary" required>Үнэн зөв бөглөсөн</mat-checkbox>
+        </div>
+        <button mat-raised-button color="primary" [disabled]="f.invalid">Оруул</button>
+    </form>
+</section>

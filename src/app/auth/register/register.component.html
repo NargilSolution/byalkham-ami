@@ -1,0 +1,38 @@
+<mat-card>
+    <mat-card-content>
+        <h2>Гишүүн урих</h2>
+    <form fxLayout="column" fxLayoutAlign="center center" #f="ngForm" (ngSubmit)="onSubmit(f)">
+        <section fxLayout="column" fxLayoutAlign="center">
+            <mat-checkbox [(ngModel)]="admin" name="adminCheck">Admin</mat-checkbox>
+            <mat-checkbox [(ngModel)]="editor" name="editorCheck">Editor</mat-checkbox>
+            <mat-checkbox [(ngModel)]="subscriber" name="subscriberCheck">Subscriber</mat-checkbox>
+          </section>
+        <mat-form-field>
+            <input 
+                type="text" 
+                matInput 
+                placeholder="Нэр" 
+                ngModel 
+                name="name"
+                required
+                #firstName="ngModel">
+            <mat-error *ngIf="firstName.hasError('required')">Нэр хоосон байж болохгүй</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input 
+                type="email" 
+                matInput 
+                placeholder="Мэйл хаяг" 
+                ngModel 
+                name="email"
+                email
+                required
+                #emailInput="ngModel">
+            <mat-error *ngIf="emailInput.hasError('required')">Мэйл хаяг хоосон байж болохгүй</mat-error>
+            <mat-error *ngIf="!emailInput.hasError('required')">Мэйл буруу байна</mat-error>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" [disabled]="f.invalid">Код илгээ</button>
+    </form>
+</mat-card-content>
+</mat-card>

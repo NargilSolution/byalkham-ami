@@ -1,0 +1,13 @@
+mat-form-field {
+    width: 200px;
+  }
+
+mat-checkbox {
+    width: 200px;
+    text-align: center;
+}
+h2 {
+    text-align: center;
+    margin-top: 20px;
+}
+ 
