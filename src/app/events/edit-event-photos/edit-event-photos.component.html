@@ -1,0 +1,96 @@
+<div class="photos" *ngFor="let gallery of galleries">
+  <h3> {{ gallery.title }}</h3>
+  <mat-grid-list [cols]="cols" [gutterSize]="gap+''" [rowHeight]="gridHeight">
+    <mat-grid-tile *ngFor="let photo of gallery.photos; let i = index">
+      <button class="dot-menu" mat-icon-button [matMenuTriggerFor]="userMenu"><mat-icon>more_vert</mat-icon></button>
+      <mat-menu #userMenu="matMenu">
+        <button class="menu-button" mat-menu-item (click)="showEditDialog(photo)">Засах</button>
+        <button class="menu-button" mat-menu-item (click)="askToDelete(photo)">Устгах</button>
+      </mat-menu>
+        <mat-grid-tile-footer *ngIf="photo.title">{{ photo.title }}</mat-grid-tile-footer>
+      <img [src]="photo.thumbURL" [ngClass]="gridWidth == 150 ? 'img150' : 'img130'" (click)="showImagePreview(gallery.id!, i)">
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+<br>
+<!-- <mat-grid-list [cols]="cols" [gutterSize]="gap+''" [rowHeight]="gridHeight">
+  <mat-grid-tile
+      *ngFor="let photo of photos; let i = index">
+      <mat-grid-tile-footer>{{ photo.title }}</mat-grid-tile-footer>
+    <img [src]="photo.thumbURL" [ngClass]="gridHeight == 100 ? 'img100' : gridHeight == 150 ? 'img150' : 'img200'" (click)="showImagePreview(i)">
+  </mat-grid-tile>
+</mat-grid-list>
+<br> -->
+
+<div fxLayout.xs='column' fxLayout='row' fxLayoutGap='20px' fxLayoutGap.xs='0px' fxLayoutAlign='center start' fxLayoutAlign.xs='center center'>
+  <app-event-categories></app-event-categories>
+  <mat-spinner *ngIf="loading"></mat-spinner>
+  <form fxLayout="column" fxLayoutAlign="center center" #f="ngForm" autocomplete="off" *ngIf="!loading" (ngSubmit)="uploadPhoto(f)">
+    <mat-form-field *ngIf="categories">
+        <mat-select
+            matInput
+            placeholder="Хэсэг"
+            [(ngModel)]="categoryId"
+            name="categoryId"
+            (ngModelChange)="onCategorySelected(f)"
+            required>
+            <mat-option [value]="category.id" *ngFor="let category of categories">{{ category.title }}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <div fxLayout fxLayout="column" fxLayoutAlign="center center">
+      <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="center center">
+        <div class="thumb" *ngIf="thumbSrc">
+          <img [src]="thumbSrc" alt="Image thumbnail">
+        </div>
+        <div fxLayout fxLayout="column" fxLayoutAlign="center start">
+          <button type="button" mat-stroked-button color="accent" onclick="document.getElementById('getThumb').click()">Дүрслэл</button>
+          <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="center center">
+            <button type="button" mat-stroked-button color="accent" onclick="document.getElementById('getFile').click()">Зураг</button>
+            <p class="file-name">{{ fileName }}</p>
+          </div>
+        </div>
+      </div>
+      <input type='file' #fileInput id="getFile" accept="image/*" hidden (change)="onFileChange($event)">
+      <input type='file' #thumbInput id="getThumb" accept="image/*" hidden (change)="onThumbChange($event)">
+      <div class="preview" *ngIf="src">
+        <img [src]="src" alt="Image preview">
+      </div>
+    </div>
+    <mat-form-field class="subjectInput">
+      <input
+          type="text"
+          matInput
+          placeholder="Нэр"
+          [(ngModel)]="title"
+          name="title"
+          spellcheck="false">
+  </mat-form-field>
+  <div fxlayout="row" fxLayoutGap="10px" fxLayoutAlign="center center">
+    <mat-form-field class="date">
+      <mat-label>Огноо</mat-label>
+      <input
+          matInput
+          [matDatepicker]="picker"
+          placeholder="MM/DD/YYYY"
+          [(ngModel)]="date"
+          name="date"
+          required
+          disabled>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker disabled="false"></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="order">
+        <input
+            type="number"
+            matInput
+            placeholder="Дараалал"
+            [(ngModel)]="order"
+            step="1"
+            name="order"
+            required>
+    </mat-form-field>
+  </div>
+    <button type="submit" mat-raised-button color="primary" id="modal-action-button" [disabled]="f.invalid || !date || !fileName"><mat-icon>file_upload</mat-icon>Нэм</button>
+    <p>{{ downloadURL | async }}</p>
+  </form>
+</div>

@@ -1,0 +1,18 @@
+<h3>Тохиргоонууд</h3>
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Сонголтууд
+      </mat-panel-title>
+      <mat-panel-description>
+        Currently I am
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div fxLayout="row wrap">
+      <button mat-button color="primary" (click)="goRouterLink('event-types')">Үйл явдлын төрлүүд</button>
+      <button mat-button color="primary" (click)="goRouterLink('sport-types')">Спортын төрлүүд</button>
+      <button mat-button color="primary">Бусад</button>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>

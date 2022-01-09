@@ -1,0 +1,14 @@
+<app-event-title *ngIf="!hideTitle"></app-event-title>
+
+<div class="photos" *ngFor="let gallery of galleries">
+  <h3> {{ gallery.title }}</h3>
+  <mat-grid-list [cols]="cols" [gutterSize]="gap+''" [rowHeight]="gridHeight">
+    <mat-grid-tile *ngFor="let photo of gallery.photos; let i = index">
+      <button class="bttn-download" mat-icon-button (click)="downloadImage(photo)" *ngIf="auth.isAuth"><mat-icon>file_download</mat-icon></button>
+        <mat-grid-tile-footer *ngIf="photo.title">{{ photo.title }}</mat-grid-tile-footer>
+      <img [src]="photo.thumbURL" [ngClass]="gridWidth == 150 ? 'img150' : 'img130'" (click)="showImagePreview(gallery.id!, i)">
+    </mat-grid-tile>
+  </mat-grid-list>
+  <br>
+  <p class="message" *ngIf="!auth.isAuth">Зургийг татаж авахын тулд нэвтэрсэн байх шаардлагатай</p>
+</div>

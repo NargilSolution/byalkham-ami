@@ -1,0 +1,88 @@
+<h3>Үйл явдлын төрлүүд</h3>
+<mat-table [dataSource]="dataSource" matSort>
+
+  <ng-container matColumnDef="order">
+    <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.order }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="title">
+    <mat-header-cell *matHeaderCellDef>Нэршил</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.title }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="english">
+    <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.english }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="includes">
+    <mat-header-cell *matHeaderCellDef>Агуулга</mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <span *ngIf="element.hasPhotos"><mat-icon>photo_library</mat-icon></span>
+      <span *ngIf="element.hasVideos"><mat-icon>duo</mat-icon></span>
+      <span *ngIf="element.hasSchedule"><mat-icon>date_range</mat-icon></span>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="action" stickyEnd>
+    <mat-header-cell *matHeaderCellDef class="align-right">
+      <button mat-icon-button color="primary" (click)="showAddDialog()"><mat-icon>add</mat-icon></button>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element" class="align-right">
+      <button mat-icon-button class="threeDots" [matMenuTriggerFor]="userMenu">...</button>
+          <mat-menu #userMenu="matMenu">
+          </mat-menu>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+</mat-table>
+<br>
+
+<mat-card>
+  <form fxLayout="column" #f="ngForm" (ngSubmit)="onSubmit()">
+    <mat-form-field class="orderField">
+        <input
+            type="number"
+            matInput
+            placeholder="#"
+            [(ngModel)]="newEventType.order"
+            name="order"
+            required
+            #registryInput="ngModel">
+    </mat-form-field>
+    <mat-form-field>
+        <input
+            type="text"
+            matInput
+            placeholder="Нэршил"
+            [(ngModel)]="newEventType.title"
+            name="title"
+            cdkFocusInitial
+            spellcheck="false"
+            required
+            #nameInput="ngModel">
+    </mat-form-field>
+    <mat-form-field>
+        <input
+            type="text"
+            matInput
+            placeholder="Title"
+            [(ngModel)]="newEventType.english"
+            name="english"
+            cdkFocusInitial
+            spellcheck="false"
+            required
+            #nameInput="ngModel">
+    </mat-form-field>
+    <section fxLayout="column" fxLayoutAlign="center">
+        <mat-checkbox color="primary" [(ngModel)]="newEventType.hasPhotos" name="hasPhotos">Зургийн цомогтой</mat-checkbox>
+        <mat-checkbox color="primary" [(ngModel)]="newEventType.hasVideos" name="hasVideos">Видео цомогтой</mat-checkbox>
+        <mat-checkbox color="primary" [(ngModel)]="newEventType.hasSchedule" name="hasSchedule">Төлөвлөгөөтэй</mat-checkbox>
+    </section>
+    <br>
+    <button mat-raised-button color="primary" [disabled]="f.invalid">Нэм</button>
+  </form>
+</mat-card>

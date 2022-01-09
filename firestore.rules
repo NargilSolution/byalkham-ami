@@ -1,0 +1,82 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function getRole(role) {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.roles[role]
+    }
+
+    match /invitedUsers/{invitedUserId} {
+      allow read;
+      allow write: if getRole('admin');
+    }
+
+    match /users/{userId} {
+      allow read: if request.auth.uid != null;
+      allow create: if request.auth.uid != null;
+      allow update: if getRole('admin') || request.auth.uid == userId;
+      allow delete: if getRole('admin');
+    }
+
+    match /selections/{document=**} {
+      allow read;
+      allow write: if getRole('admin');
+    }
+
+    match /preferences/{userId} {
+      allow read;
+      allow create: if request.auth.uid != null;
+      allow update: if request.auth.uid == userId;
+      allow delete: if getRole('admin');
+    }
+
+    match /events/{document=**} {
+      allow read;
+      allow create: if request.auth.uid != null;
+      allow update: if getRole('admin');
+      allow delete: if getRole('admin');
+
+    }
+
+    match /workouts/{workoutId} {
+      allow read;
+      allow create: if request.auth.uid != null;
+      allow update: if getRole('coach') || request.auth.uid == resource.data.createdId || request.auth.uid == resource.data.athlete.id;
+      allow delete: if getRole('coach') || request.auth.uid == resource.data.athlete.id;
+
+    }
+
+    match /exercises/{exerciseId} {
+      allow read;
+      allow create: if request.auth.uid != null;
+      allow update: if getRole('coach') || request.auth.uid == resource.data.createdId || request.auth.uid == resource.data.athlete.id;
+      allow delete: if getRole('coach') || request.auth.uid == resource.data.athlete.id;
+
+    }
+
+    match /places/{placeId} {
+      allow read;
+      allow create: if getRole('coach');
+      allow update: if getRole('coach');
+      allow delete: if getRole('admin');
+
+    }
+
+    match /preference/{preferenceId} {
+      allow read;
+      allow create: if getRole('coach');
+      allow update: if getRole('coach');
+      allow delete: if getRole('admin');
+
+    }
+
+    match /schedules/{scheduleId} {
+      allow read;
+      allow create: if getRole('coach');
+      allow update: if getRole('coach');
+      allow delete: if getRole('admin');
+
+    }
+
+  }
+}

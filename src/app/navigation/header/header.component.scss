@@ -1,0 +1,27 @@
+// .toolbar {
+//   background-color: #223a76;
+// }
+a {
+  text-decoration: none;
+  color: white;
+}
+
+a:hover, a:active {
+  color:lightgray;
+}
+
+.navigation-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+
+.nav-caption {
+  display: inline-block;
+  padding-left: 6px;
+}
+mat-toolbar{
+  min-height:40px;
+  max-height:50px
+ }

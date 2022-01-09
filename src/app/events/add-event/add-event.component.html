@@ -1,0 +1,107 @@
+<h2 mat-dialog-title>Үйл явдал нэмэх бүртгэл</h2>
+
+<mat-dialog-content class="mat-typography">
+  <form fxLayout="column" fxLayoutAlign="center center" #f="ngForm">
+    <mat-form-field>
+        <mat-select
+            type="text"
+            matInput
+            placeholder="Үйл явдлын төрөл"
+            ngModel
+            name="typeId"
+            required>
+            <mat-option [value]="type.id" *ngFor="let type of types">{{ type.title }}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field class="wideField">
+        <input
+            type="text"
+            matInput
+            placeholder="Үйл явдлын нэр"
+            ngModel
+            name="name"
+            spellcheck="false"
+            required>
+    </mat-form-field>
+    <mat-form-field class="wideField">
+        <input
+            type="text"
+            matInput
+            placeholder="Англи нэр"
+            ngModel
+            name="englishName"
+            spellcheck="false"
+            required>
+    </mat-form-field>
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px" fxLayoutGap.xs="0">
+      <mat-form-field class="dateField">
+        <mat-label>Эхлэх огноо</mat-label>
+        <input
+            matInput
+            [matDatepicker]="picker"
+            placeholder="MM/DD/YYYY"
+            [(ngModel)]="startDate"
+            name="startDate"
+            (ngModelChange)="onDateSelected()"
+            required
+            disabled>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker disabled="false"></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field class="dateField">
+        <mat-label>Дуусах огноо</mat-label>
+        <input
+            matInput
+            [matDatepicker]="pickerEnd"
+            placeholder="MM/DD/YYYY"
+            [(ngModel)]="endDate"
+            name="endDate"
+            (ngModelChange)="onDateSelected()"
+            required
+            disabled>
+        <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+        <mat-datepicker #pickerEnd disabled="false"></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <mat-form-field class="wideField">
+        <input
+            type="text"
+            matInput
+            placeholder="Байршил"
+            ngModel
+            name="place"
+            spellcheck="false"
+            required>
+    </mat-form-field>
+    <mat-form-field class="wideField">
+        <input
+            type="text"
+            matInput
+            placeholder="Зохион байгуулагч"
+            ngModel
+            name="organizer"
+            spellcheck="false"
+            required>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-select
+            type="text"
+            matInput
+            placeholder="Төлөв"
+            [(ngModel)]="status"
+            name="status"
+            required>
+            <mat-option value="planned">Төлөвлөгдсөн</mat-option>
+            <mat-option value="canceled">Цуцлагдсан</mat-option>
+            <mat-option value="started">Эхэлсэн</mat-option>
+            <mat-option value="delayed">Хойшлогдсон</mat-option>
+            <mat-option value="finished">Явагдсан</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close mat-dialog-close>Цуцал</button>
+  <button mat-raised-button color="primary" [disabled]="f.invalid" (click)="onSubmit(f)">Нэм</button>
+</mat-dialog-actions>

@@ -1,0 +1,19 @@
+h2 {
+  text-align: center;
+  margin: 20px;
+}
+.wideField {
+  max-width: 460px;
+  width: 95%;
+}
+.mediumField {
+  max-width: 250px;
+  width: 50%;
+}
+.dateField {
+  width: 150px;
+}
+::ng-deep.mat-form-field-disabled input,  .mat-form-field-disabled mat-select
+{
+  -webkit-text-fill-color:dodgerblue;
+}

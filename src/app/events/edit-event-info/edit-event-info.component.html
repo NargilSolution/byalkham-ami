@@ -1,0 +1,21 @@
+<h2 mat-dialog-title>Үйл явдал нэмэх бүртгэл</h2>
+
+<mat-dialog-content class="mat-typography">
+  <form #f="ngForm">
+    <mat-form-field fxFlex *ngIf="event">
+        <textarea
+            type="text"
+            matInput
+            placeholder="Танилцуулга"
+            [(ngModel)]="event.info"
+            name="info"
+            spellcheck="false"
+            required
+            rows="10"></textarea>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close mat-dialog-close>Цуцал</button>
+  <button mat-raised-button color="primary" [disabled]="f.invalid" (click)="onSubmit(f)">Зас</button>
+</mat-dialog-actions>

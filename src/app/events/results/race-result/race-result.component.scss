@@ -1,0 +1,48 @@
+
+.mat-header-row, .mat-row {
+  min-height: 30px !important;
+}
+.mat-table {
+  margin: auto;
+  margin-bottom: 15px;
+  max-width: 500px;
+}
+.blue-text {
+  color: blue;
+  text-decoration: underline;
+}
+.align-right{
+  display: flex;
+  justify-content: flex-end;
+}
+.mat-column-face {
+  flex: 0 0 50px !important;
+  width: 50px !important;
+}
+.mat-column-name {
+  cursor: pointer;
+}
+.mat-column-order {
+  flex: 0 0 40px !important;
+  width: 40px !important;
+}
+.mat-column-number {
+  flex: 0 0 50px !important;
+  width: 50px !important;
+}
+.mat-column-distance {
+  flex: 0 0 50px !important;
+  width: 50px !important;
+}
+.mat-column-time {
+  flex: 0 0 65px !important;
+  width: 65px !important;
+}
+.mat-column-action {
+  flex: 0 0 40px !important;
+  width: 40px !important;
+}
+img {
+  height: 40px;
+  width: auto;
+}

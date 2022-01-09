@@ -1,0 +1,13 @@
+
+<section *ngIf="event">
+  <app-event-title *ngIf="!hideTitle"></app-event-title>
+
+  <h2>Тэмцээний үр дүн</h2>
+
+  <div *ngFor="let race of races">
+    <h3>{{ race.title }}</h3>
+    <app-race-result [raceId]="race.id!"></app-race-result>
+  </div>
+
+  <button class="add-button" mat-raised-button color="primary" (click)="showAddDialog()" *ngIf="isAdmin"><mat-icon>add</mat-icon>Нэм</button>
+</section>

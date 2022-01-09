@@ -1,27 +1,25 @@
-<mat-toolbar color="primary">
-    <div fxHide.gt-xs>
-        <button mat-icon-button (click)="onToggleSidenav()">
-            <mat-icon>menu</mat-icon>
-        </button>
+<mat-toolbar class="toolbar" color="primary">
+  <div fxHide.gt-xs>
+      <button mat-icon-button (click)="onToggleSidenav()">
+          <mat-icon>menu</mat-icon>
+      </button>
+  </div>
+  <div><a routerLink="/">Бялхам амь</a></div>
+  <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
+    <div fxLayout class="navigation-items">
+          <button mat-button (click)="goRouterLink('admin')" *ngIf="auth.isAdmin">Админ</button>
+
+          <button mat-button (click)="goRouterLink('events')">Үйл явдал</button>
+          <button mat-button (click)="goRouterLink('news')">Мэдээлэл</button>
+
+          <button mat-button (click)="goRouterLink('login')" *ngIf="!auth.isAuth">Нэвтрэх</button>
+          <button mat-button [matMenuTriggerFor]="userMenu" *ngIf="auth.isAuth">{{ auth.username }}<mat-icon>arrow_drop_down</mat-icon></button>
+          <mat-menu #userMenu="matMenu">
+            <button mat-menu-item (click)="goRouterLink('account')">Миний мэдээлэл</button>
+            <button mat-menu-item (click)="goRouterLink('docs')">Зааварчилгаа</button>
+            <button mat-menu-item (click)="onLogout()">Гарах</button>
+          </mat-menu>
+          <button mat-icon-button (click)="goRouterLink('settings')"><mat-icon>settings</mat-icon></button>
     </div>
-    <div><a routerLink="/">Бялхам амь</a></div>
-    <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
-        <div fxLayout class="navigation-items">
-            <button mat-button *ngIf="isAdmin"><a routerLink="/admin">Админ</a></button>
-            <button mat-button [matMenuTriggerFor]="productSub" *ngIf="isAdmin"><a routerLink="/products">Бараа</a></button>
-            <mat-menu #productSub="matMenu">
-                <button mat-menu-item (click)="goRouterLink('add-item')" *ngIf="isAuth">Бараа бүртгэл</button>
-                <button mat-menu-item (click)="goRouterLink('supplies')" *ngIf="isAuth">Татан авалт</button>
-                <button mat-menu-item (click)="goRouterLink('orders')" *ngIf="isAuth">Захиалга</button>
-                <button mat-menu-item (click)="goRouterLink('shipping')" *ngIf="isAuth">Хүргэлт</button>
-            </mat-menu>
-            <button mat-button (click)="goRouterLink('signup')" *ngIf="!isAuth">Шинэ эрх</button>
-            <button mat-button (click)="goRouterLink('login')" *ngIf="!isAuth">Нэвтрэх</button>
-            <button mat-button *ngIf="isAuth" [matMenuTriggerFor]="userMenu"><a>{{ nickname }}</a><mat-icon>arrow_drop_down</mat-icon></button>
-            <mat-menu #userMenu="matMenu">
-                <button mat-menu-item *ngIf="isAuth">Миний мэдээлэл</button>
-                <button mat-menu-item *ngIf="isAuth" (click)="onLogout()">Гарах</button>
-            </mat-menu>
-        </div>   
-    </div>
+  </div>
 </mat-toolbar>

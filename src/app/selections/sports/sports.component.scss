@@ -1,0 +1,45 @@
+.mat-table {
+  max-width: 600px;
+  min-width: 350px;
+  margin: auto;
+}
+h3 {
+  margin-top: 15px;
+  margin-bottom: 0;
+  text-align: center;
+}
+.align-right{
+  display: flex;
+  justify-content: flex-end;
+}
+.mat-header-row {
+  min-height: 30px !important;
+}
+.mat-row {
+  min-height: 20px !important;
+}
+.mat-column-order {
+  flex: 0 0 50px !important;
+  width: 50px !important;
+}
+.mat-column-title {
+  flex: 0 0 150px !important;
+  width: 150px !important;
+}
+.mat-column-english {
+  flex: 0 0 200px !important;
+  width: 200px !important;
+}
+// .mat-header-cell {
+//   font-size: medium;
+// }
+.threeDots {
+  height: 30px;
+}
+.mat-card {
+  max-width: 300px;
+  margin: auto;
+}
+.orderField {
+  max-width: 50px;
+}

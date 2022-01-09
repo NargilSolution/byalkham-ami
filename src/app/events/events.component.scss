@@ -1,0 +1,36 @@
+h2 {
+  text-align: center;
+  margin-bottom: 0;
+  margin-top: 10px;
+}
+.align-right{
+  display: flex;
+  justify-content: flex-end;
+}
+.mat-column-type {
+  flex: 0 0 105px !important;
+  width: 105px !important;
+}
+.mat-column-date {
+  flex: 0 0 100px !important;
+  width: 100px !important;
+}
+.mat-column-place {
+  flex: 0 0 150px !important;
+  width: 150px !important;
+}
+.mat-column-organizer {
+  flex: 0 0 150px !important;
+  width: 150px !important;
+}
+.mat-column-action {
+  flex: 0 0 40px !important;
+  width: 40px !important;
+}
+
+.element-row {
+  cursor: pointer;
+}
+.element-row:hover {
+  background-color: dimgray;
+}

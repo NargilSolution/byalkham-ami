@@ -1,0 +1,49 @@
+<youtube-player
+  [videoId]="event.youtubeId"
+  suggestedQuality="highres"
+  origin="https://localhost:4200"
+  [height]="screenWidth/16*9"
+  [width]="screenWidth"
+  *ngIf="event && event.youtubeId">
+</youtube-player>
+
+<app-event-title></app-event-title>
+
+<img [src]="event.photoURL" class="main-photo"
+[height]="screenWidth/3*2"
+[width]="screenWidth"
+*ngIf="event && event.photoURL">
+
+<mat-card class="event-info">
+  <button class="bttn-edit-info" mat-icon-button color="primary" (click)="editInfoDialog()" *ngIf="auth.isAdmin"><mat-icon>edit</mat-icon></button>
+  <div [innerHTML]="event.info" *ngIf="event && event.info"></div>
+</mat-card>
+<app-results [hideTitle]="true" *ngIf="event && event.resultAvailable"></app-results>
+<br>
+<div class="expansion">
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Фото агшинууд
+        </mat-panel-title>
+        <mat-panel-description *ngIf="photoCount">
+          {{photoCount}} зураг байна
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <app-event-photos [hideTitle]="true"></app-event-photos>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Видео үзвэрүүд
+        </mat-panel-title>
+        <mat-panel-description *ngIf="videoCount">
+          {{videoCount}} видео байна
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <app-event-videos></app-event-videos>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+

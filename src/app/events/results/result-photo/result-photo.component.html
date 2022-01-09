@@ -1,0 +1,41 @@
+<div mat-dialog-title class="welcome" fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center">
+  <h3>{{doc.lastName}} {{doc.firstName}}</h3>
+</div>
+<mat-dialog-content class="mat-typography">
+  <mat-progress-spinner
+    mode="determinate"
+    [value]="uploadPercent | async"
+    *ngIf="loading">
+  </mat-progress-spinner>
+  <form fxLayout="column" fxLayoutAlign="center center" #f="ngForm">
+    <div fxLayout fxLayout="column" fxLayoutAlign="center center">
+      <button class="fromMemberBttn" type="button" mat-stroked-button color="primary" (click)="getMemberPhoto()" *ngIf="photoAvailable && !memberPhotoChosen">Гишүүний зураг оруул</button>
+      <p *ngIf="memberPhotoChosen">Гишүүний зураг оруулахаар сонгосон байна</p>
+      <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="center center" *ngIf="!memberPhotoChosen">
+        <button type="button" mat-stroked-button color="accent" onclick="document.getElementById('getFile').click()">Профайл</button>
+        <p class="file-name">{{ portraitFileName }}</p>
+      </div>
+      <input type='file' #fileInput id="getFile" accept="image/*" hidden (change)="onPortraitChange($event)">
+      <div class="preview" *ngIf="profileSrc">
+        <img [src]="profileSrc" alt="Portrait preview">
+        <button class="delete-button" mat-icon-button *ngIf="doc.photoURL" (click)="deleteProfilePhoto()"><mat-icon>delete</mat-icon></button>
+      </div>
+    </div>
+    <br>
+    <div fxLayout fxLayout="column" fxLayoutAlign="center center">
+      <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="center center" *ngIf="!memberPhotoChosen">
+        <button type="button" mat-stroked-button color="accent" onclick="document.getElementById('faceFile').click()">Нүүр</button>
+        <p class="file-name">{{ faceFileName }}</p>
+      </div>
+      <input type='file' #faceInput id="faceFile" accept="image/*" hidden (change)="onFaceChange($event)">
+      <div class="face" *ngIf="faceSrc">
+        <img [src]="faceSrc" alt="Face">
+        <button class="delete-button" mat-icon-button *ngIf="doc.faceURL" (click)="deleteFacePhoto()"><mat-icon>delete</mat-icon></button>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end" fxLayoutGap="20px">
+  <button mat-raised-button color="primary" [mat-dialog-close]="true" [disabled]="f.invalid || !profileSrc || !faceSrc" (click)="uploadPhoto()">Оруул</button>
+  <button type="button" mat-raised-button color="accent" [mat-dialog-close]="true">Цуцал</button>
+</mat-dialog-actions>

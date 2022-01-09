@@ -1,0 +1,6 @@
+<mat-grid-list [cols]="cols" [gutterSize]="gap+''" [rowHeight]="gridHeight">
+  <mat-grid-tile *ngFor="let video of videos; let i = index">
+      <mat-grid-tile-footer *ngIf="video.title">{{ video.title }}</mat-grid-tile-footer>
+    <img [src]="video.thumbURL" [ngClass]="gridWidth == 150 ? 'img150' : 'img130'" (click)="showImagePreview(eventId!, i)">
+  </mat-grid-tile>
+</mat-grid-list>

@@ -1,0 +1,18 @@
+.preview img {
+  max-width: 450px;
+  height: auto;
+}
+.preview, .face {
+  margin-top: 10px;
+  position: relative;
+}
+
+.delete-button {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  color: red;
+}
+.fromMemberBttn {
+  margin-bottom: 10px;
+}

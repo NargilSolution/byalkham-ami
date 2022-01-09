@@ -2,10 +2,13 @@
   "targets": {
     "byalkham-ami": {
       "hosting": {
-        "byalkham-ami": [
+        "full-life": [
           "byalkham-ami"
         ]
       }
     }
+  },
+  "projects": {
+    "default": "byalkham-ami"
   }
 }

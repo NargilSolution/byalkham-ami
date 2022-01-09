@@ -1,0 +1,15 @@
+h2, h3 {
+  text-align: center;
+  margin-bottom: 0;
+}
+.align-right{
+  display: flex;
+  justify-content: flex-end;
+}
+.mat-column-action {
+  flex: 0 0 40px !important;
+  width: 40px !important;
+}
+.add-button {
+  margin-left: 20px;
+}

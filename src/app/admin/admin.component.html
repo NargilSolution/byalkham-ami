@@ -1,0 +1,9 @@
+<nav mat-tab-nav-bar ngClass = "tabs">
+  <a mat-tab-link routerLink="/admin/users" routerLinkActive="active-link">Хэрэглэгчид</a>
+  <a mat-tab-link routerLink="/admin/invited" routerLinkActive="active-link">Урилгууд</a>
+  <a mat-tab-link routerLink="/admin/invite" routerLinkActive="active-link">Хэрэглэгч урих</a>
+  <a mat-tab-link routerLink="/admin/settings" routerLinkActive="active-link">Тохиргоо</a>
+</nav>
+<div class="outlet">
+ <router-outlet></router-outlet>
+</div>

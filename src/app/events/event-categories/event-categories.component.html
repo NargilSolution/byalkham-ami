@@ -1,0 +1,27 @@
+<mat-table [dataSource]="dataSource" matSort>
+
+  <ng-container matColumnDef="order">
+    <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.order }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="title">
+    <mat-header-cell *matHeaderCellDef>Хэсгүүд</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.title }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="action" stickyEnd>
+    <mat-header-cell *matHeaderCellDef class="align-right">
+      <button mat-icon-button color="primary" (click)="showAddDialog(eventId)"><mat-icon>add</mat-icon></button>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element" class="align-right">
+      <button mat-icon-button class="threeDots" [matMenuTriggerFor]="userMenu">...</button>
+          <mat-menu #userMenu="matMenu">
+          </mat-menu>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+</mat-table>
+

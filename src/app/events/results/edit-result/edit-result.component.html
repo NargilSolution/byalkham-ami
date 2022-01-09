@@ -1,0 +1,119 @@
+<h2 mat-dialog-title>Ангилал нэм</h2>
+<mat-dialog-content class="mat-typography">
+  <form fxLayout="column" fxLayoutAlign="center center" #f="ngForm">
+    <mat-form-field>
+        <mat-select
+            matInput
+            placeholder="Гараа"
+            [(ngModel)]="doc.raceId"
+            name="raceId"
+            (ngModelChange)="onRaceSelected()"
+            required>
+            <mat-option [value]="race.id" *ngFor="let race of races">{{race.title}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-select
+            matInput
+            placeholder="Гишүүн"
+            [(ngModel)]="doc.memberId"
+            name="memberId"
+            (ngModelChange)="onMemberSelected()">
+            <mat-option [value]="member.id" *ngFor="let member of members">{{member.firstName + ' ' + member.lastName.substring(0,1)}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field *ngIf="!doc.memberId">
+        <input
+            type="text"
+            matInput
+            placeholder="Овог"
+            [(ngModel)]="doc.lastName"
+            name="lastName"
+            spellcheck="false"
+            required>
+    </mat-form-field>
+    <mat-form-field *ngIf="!doc.memberId">
+        <input
+            type="text"
+            matInput
+            placeholder="Нэр"
+            [(ngModel)]="doc.firstName"
+            name="firstName"
+            spellcheck="false"
+            required>
+    </mat-form-field>
+    <mat-form-field *ngIf="!doc.memberId">
+        <input
+            type="text"
+            matInput
+            placeholder="Регистр"
+            [(ngModel)]="doc.registry"
+            name="registry"
+            spellcheck="false"
+            required>
+    </mat-form-field>
+    <mat-form-field>
+        <input
+            type="number"
+            matInput
+            placeholder="Дараалал"
+            [(ngModel)]="doc.order"
+            name="order"
+            spellcheck="false"
+            required>
+    </mat-form-field>
+    <mat-form-field>
+        <input
+            type="text"
+            matInput
+            placeholder="Номер"
+            [(ngModel)]="doc.raceNumber"
+            name="raceNumber"
+            spellcheck="false"
+            required>
+    </mat-form-field>
+    <mat-form-field>
+        <input
+            type="number"
+            matInput
+            placeholder="Зай"
+            [(ngModel)]="doc.distance"
+            name="distance"
+            spellcheck="false"
+            required>
+    </mat-form-field>
+    <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="center center">
+      <mat-form-field class="shortField">
+          <input
+              type="number"
+              matInput
+              placeholder="Минут"
+              [(ngModel)]="minutes"
+              name="minutes"
+              required>
+      </mat-form-field>
+      <mat-form-field class="shortField">
+          <input
+              type="number"
+              matInput
+              placeholder="Секунд"
+              [(ngModel)]="seconds"
+              name="seconds"
+              required>
+      </mat-form-field>
+      <mat-form-field class="shortField">
+          <input
+              type="number"
+              matInput
+              placeholder="Доль"
+              [(ngModel)]="milliseconds"
+              name="milliseconds"
+              required>
+      </mat-form-field>
+    </div>
+</form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Цуцал</button>
+  <button mat-raised-button color="primary" [disabled]="f.invalid" (click)="onSubmit(f)">Зас</button>
+</mat-dialog-actions>

@@ -1,0 +1,23 @@
+.mat-spinner {
+  margin: auto;
+  margin-top: 20px;
+}
+.mat-card {
+  margin-top: 20px !important;
+  max-width: 500px;
+  margin: auto;
+}
+form {
+  margin-top: 20px !important;
+  max-width: 200px;
+  margin: auto;
+}
+.label {
+  margin-bottom: 0;
+}
+::ng-deep.mat-checkbox-label {
+  color: black !important;
+}
+::ng-deep.mat-checkbox-background {
+  background-color: #3F51B5 !important;
+}

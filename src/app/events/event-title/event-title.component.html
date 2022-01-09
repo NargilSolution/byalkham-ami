@@ -1,0 +1,4 @@
+<div class="title" *ngIf="event">
+  <h2>{{ event.name }}</h2>
+  <h3>{{ event.place }} - {{ event.startDate.toDate() | date : 'yyyy/MM/dd' }}</h3>
+</div>

@@ -1,0 +1,55 @@
+<div fxLayoutAlign="center center">
+  <mat-form-field fxFlex="50%" fxFlex.gt-sm="30%">
+      <input matInput type="text" #filter (keyup)="doFilter(filter.value)" placeholder="Шүүлт">
+  </mat-form-field>
+</div>
+<mat-table [dataSource]="dataSource" matSort>
+
+  <!-- <ng-container matColumnDef="organization">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Байгууллага</mat-header-cell>
+    <mat-cell *matCellDef="let element" matTooltip="{{ element.organizationName }}">{{ element.organizationAcronym }}</mat-cell>
+  </ng-container> -->
+
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Нэр</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.firstName }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="email">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Мэйл хаяг</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.email }} &nbsp; &nbsp;</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="roles">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Эрхүүд</mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <span matTooltip="Хэрэглэгчид удирдана" *ngIf="element.roles.admin"><mat-icon>manage_accounts</mat-icon></span>
+      <span matTooltip="Мэдээлэл оруулна" *ngIf="element.roles.editor"><mat-icon>edit</mat-icon></span>
+      <span matTooltip="Мэдээлэл харна" *ngIf="element.roles.subscriber"><mat-icon>visibility</mat-icon></span>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="createdAt">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Огноо</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.createdAt ? (element.createdAt.toDate() | date: 'short') : '' }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="action" stickyEnd>
+    <mat-header-cell *matHeaderCellDef class="align-right" mat-sort-header></mat-header-cell>
+    <mat-cell *matCellDef="let element" class="align-right">
+      <button mat-icon-button [matMenuTriggerFor]="userMenu"><mat-icon>more_vert</mat-icon></button>
+          <mat-menu #userMenu="matMenu">
+            <button mat-menu-item (click)="showLinkDialog(element.id)">Холбоос</button>
+            <hr>
+            <button class="delete-bttn" mat-menu-item (click)="deleteRequest(element.id)">Устгах</button>
+            <!-- <button mat-menu-item *ngIf="auth.isLocalAdmin" (click)="deleteRequest(element.id)">Устгах</button> -->
+          </mat-menu>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+
+<mat-paginator [pageSize]="20" [pageSizeOptions]="[20, 50]">
+</mat-paginator>
