@@ -15,6 +15,14 @@
 <mat-card class="event-info">
   <button class="bttn-edit-info" mat-icon-button color="primary" (click)="editInfoDialog()" *ngIf="auth.isAdmin"><mat-icon>edit</mat-icon></button>
   <div [innerHTML]="event.info" *ngIf="event && event.info"></div>
+  <quill-editor
+        [styles]="{height: '200px', width: '830px'}"
+        matInput
+        [(ngModel)]="event.info"
+        name="richText"
+        spellcheck="false"
+        trackChanges="all"
+        [modules]="modules" *ngIf="event && auth.isAdmin"></quill-editor>
 </mat-card>
 <app-results [hideTitle]="true" *ngIf="event && event.resultAvailable"></app-results>
 <br>

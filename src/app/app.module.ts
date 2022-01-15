@@ -26,6 +26,7 @@ import { WindowService } from './services/window.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AngularMaterialModule } from './modules/angular-material.module';
+import { QuillModule } from 'ngx-quill';
 
 // Additional Modules
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
@@ -153,7 +154,8 @@ import { AuthGuard } from './auth/auth.guard';
     NgxMaterialTimepickerModule,
     YouTubePlayerModule,
     GalleryModule,
-    LightboxModule
+    LightboxModule,
+    QuillModule.forRoot()
   ],
   providers: [
     ScreenTrackingService,
