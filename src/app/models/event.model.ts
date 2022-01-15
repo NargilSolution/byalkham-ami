@@ -37,7 +37,7 @@ export interface Event {
   type: string;
   name: string;
   englishName: string;
-  info?: string;
+  info: string;
   photoURL?: string;
   startDate: Date | any;
   endDate: Date | any;

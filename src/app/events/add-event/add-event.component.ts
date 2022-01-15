@@ -55,6 +55,7 @@ export class AddEventComponent implements OnInit {
       type: this.types.find(s => s.id == form.value.typeId)!.title,
       name: form.value.name,
       englishName: form.value.englishName,
+      info: '',
       startDate: this.startDate,
       endDate: this.endDate,
       dateRange: this.dateRange,
