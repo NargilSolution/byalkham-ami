@@ -31,9 +31,6 @@ const routes: Routes = [
     { path: 'invite', component: InviteUserComponent },
     { path: 'settings', component: SettingsComponent },
   ] },
-  // { path: 'admin', component: AdminComponent, canActivate: [AdminGuard]},
-  // { path: 'places', component: PlacesComponent, canActivate: [EditorGuard]},
-  // { path: 'sports', component: AdminComponent, canActivate: [EditorGuard]},
   { path: 'event-types', component: EventTypesComponent, canActivate: [AdminGuard] },
   { path: 'sport-types', component: SportsComponent, canActivate: [AdminGuard] },
   { path: 'events', component: EventsComponent },
@@ -46,7 +43,8 @@ const routes: Routes = [
   // { path: 'documents', component: DocumentsComponent},
   { path: 'clubs', component: ClubsComponent},
   // { path: 'register', component: RegisterComponent},
-  { path: 'signup/:invitationId', component: SignupComponent},
+  { path: 'signup', component: SignupComponent},
+  // { path: 'signup/:invitationId', component: SignupComponent},
   { path: 'login', component: LoginComponent}
 ];
 

@@ -1,19 +1,16 @@
 export interface Roles {
   [key: string]: any;
   subscriber: boolean;
-  editor?: boolean;
-  assistant?: boolean;
-  athlete?: boolean;
-  accountant?: boolean;
-  coach?: boolean;
-  admin?: boolean;
+  editor: boolean;
+  manager: boolean;
+  accountant: boolean;
+  admin: boolean;
 }
 
 export interface UserInvitation {
-  lastName: string;
   firstName: string;
   displayName: string;
-  email: string;
+  email?: string;
   roles: Roles;
   createdAt?: Date;
 }
@@ -30,7 +27,6 @@ export interface Profile {
   roles: Roles;
 }
 export interface SignupData {
-  invitationId: string;
   firstName: string;
   lastName: string;
   registry: string;

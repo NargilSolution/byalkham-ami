@@ -36,8 +36,7 @@ export class AuthService {
     admin: false,
     editor: false,
     subscriber: false,
-    assistant: false,
-    athlete: false,
+    manager: false,
     accountant: false,
     coach: false
   };

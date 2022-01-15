@@ -3,22 +3,12 @@
       <h2>Гишүүн урих</h2>
   <form fxLayout="column" fxLayoutAlign="center center" #f="ngForm" (ngSubmit)="onSubmit(f)">
       <section fxLayout="column" fxLayoutAlign="center">
-          <mat-checkbox color="primary" [(ngModel)]="roles.admin" name="adminCheck">Админ</mat-checkbox>
-          <mat-checkbox color="primary" [(ngModel)]="roles.editor" name="editorCheck">Нийтлэгч</mat-checkbox>
-          <mat-checkbox color="primary" [(ngModel)]="roles.subscriber" name="subscriberCheck">Үзэгч</mat-checkbox>
-          <mat-checkbox color="primary" [(ngModel)]="roles.assistant" name="assistant">Туслагч</mat-checkbox>
-          <mat-checkbox color="primary" [(ngModel)]="roles.athlete" name="athlete">Тамирчин</mat-checkbox>
+          <mat-checkbox color="primary" [(ngModel)]="roles.admin" name="admin">Админ</mat-checkbox>
+          <mat-checkbox color="primary" [(ngModel)]="roles.editor" name="editor">Нийтлэгч</mat-checkbox>
+          <mat-checkbox color="primary" [(ngModel)]="roles.subscriber" name="subscriber">Үзэгч</mat-checkbox>
+          <mat-checkbox color="primary" [(ngModel)]="roles.manager" name="manager">Менежер</mat-checkbox>
           <mat-checkbox color="primary" [(ngModel)]="roles.accountant" name="accountant">Нягтлан</mat-checkbox>
-          <mat-checkbox color="primary" [(ngModel)]="roles.coach" name="coach">Дасгалжуулагч</mat-checkbox>
         </section>
-      <mat-form-field>
-          <input
-              type="text"
-              matInput
-              placeholder="Овог"
-              ngModel
-              name="lastName">
-      </mat-form-field>
       <mat-form-field>
           <input
               type="text"
@@ -39,6 +29,18 @@
               name="displayName">
       </mat-form-field>
       <mat-form-field>
+        <input type="number"
+        matInput
+        placeholder="Утасны дугаар"
+        ngModel
+        name="phone"
+        pattern="[89][0-9]{7,7}"
+        required
+        #phoneInput="ngModel">
+        <mat-error *ngIf="phoneInput.hasError('required')">Утасны дугаар заавал оруулна</mat-error>
+        <mat-error *ngIf="phoneInput.hasError('pattern')">Зөв дугаар оруулна уу</mat-error>
+      </mat-form-field>
+      <mat-form-field>
           <input
               type="email"
               matInput
@@ -46,13 +48,12 @@
               ngModel
               name="email"
               email
-              required
               #emailInput="ngModel">
           <mat-error *ngIf="emailInput.hasError('required')">Мэйл хаяг хоосон байж болохгүй</mat-error>
           <mat-error *ngIf="!emailInput.hasError('required')">Мэйл буруу байна</mat-error>
       </mat-form-field>
-
-      <button mat-raised-button color="primary" [disabled]="f.invalid">Урилга илгээ</button>
+      <p class="message">Мэйл хаяг оруулаагүй тохиолдолд мэйл илгээгдэхгүй бөгөөд хэрэглэгч өөрөө утсаа зөв оруулж бүртгүүлнэ</p>
+      <button mat-raised-button color="primary" [disabled]="f.invalid">{{ emailInput.value ? 'Урилга илгээ' : 'Бүртгэ'}}</button>
   </form>
 </mat-card-content>
 </mat-card>

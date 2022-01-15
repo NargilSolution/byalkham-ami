@@ -1,14 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  Auth,
-  signInWithEmailAndPassword,
-  UserCredential,
-  User
-} from '@angular/fire/auth';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { take } from 'rxjs/operators';
-import { UserInvitation } from 'src/app/models/user.model';
+import { Roles, UserInvitation } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { FirestoreService } from 'src/app/services/firestore.service';
 
@@ -18,46 +12,26 @@ import { FirestoreService } from 'src/app/services/firestore.service';
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit {
-  invitationId: string;
-  newUser!: UserInvitation;
-  userEmail = '';
-  lastName = '';
-  firstName = '';
-  displayName = '';
-  registry ='';
-  user!: User | null;
+  invitation!: UserInvitation | {};
+  numberInvited = false;
   isLoading = false;
+  roles: Roles = {
+    admin: false,
+    editor: false,
+    subscriber: true,
+    manager: false,
+    accountant: false
+  }
 
   constructor(
     route: ActivatedRoute,
-    private readonly auth: Auth,
     private db: FirestoreService,
-    private readonly authService: AuthService,
+    public auth: AuthService,
     private readonly router: Router
-  ) {
-    this.invitationId = route.snapshot.params['invitationId'];
-    this.authService.user$.subscribe(user => { this.user = user })
-  }
+  ) {  }
 
   ngOnInit(): void {
 
-    this.db.doc$<UserInvitation>('invitedUsers/'+this.invitationId).pipe(take(1))
-    .subscribe((doc: UserInvitation) => {
-      if(doc){
-        this.newUser = doc;
-        this.userEmail = doc.email;
-        if(doc.lastName) {
-          this.lastName = doc.lastName;
-        }
-        if(doc.firstName) {
-          this.firstName = doc.firstName;
-        }
-        if(doc.displayName) {
-          this.displayName = doc.displayName;
-        }
-      }
-      this.isLoading = false;
-    });
   }
 
   onNameKeyPress(event: any) {
@@ -71,47 +45,26 @@ export class SignupComponent implements OnInit {
     }
   }
 
-  keyPressAlphanumeric(event: any) {
-
-    var inp = String.fromCharCode(event.keyCode);
-    var length = this.registry.length;
-    console.log(length);
-
-    if (/[ЁёҮүӨөА-я]/.test(inp) && length < 2) {
-      return true;
-    } else if(/[0-9]/.test(inp) && length >= 2 && length < 10) {
-      return true;
-    } else {
-      event.preventDefault();
-      return false;
+  checkPhoneNumber(phone: number) {
+    if (phone > 80000000 && phone < 99999999) {
+      this.db.doc$<UserInvitation>('invitedUsers/'+phone).pipe(take(1))
+      .subscribe((doc: UserInvitation) => {
+        if(doc){
+          this.invitation = doc;
+          this.numberInvited = true;
+        } else {
+          this.invitation = {};
+          this.numberInvited = false;
+        }
+      });
     }
   }
 
-  onRegistryChange() {
-    // const reg = this.registry.toUpperCase();
-    // console.log(reg);
-    // const len = reg.length;
-    // let numbers = '';
-    // let letters = reg.substring(0,2).replace(/[^ЁҮӨА-Я]/g, "");
-    // // let letters = reg.substring(0,len > 2 ? 2 : len);
-    // // let letters = reg.replace(/[^ЁҮӨА-Я]/g, "");
-    // if(len > 2) {
-    //   numbers = reg.substring(2, len-1).replace(/[^0-9]/g, "");
-    //   // numbers = reg.substring(2, len-1);
-    //   console.log(numbers);
-    // }
-    // console.log(len, letters, numbers);
-    this.registry = this.registry.toUpperCase();
-    // this.registry = letters + numbers;
+
+  loginWithPassword(email: string, password: string) {
+    this.auth.login(email, password);
   }
 
-  loginWithPassword(email: string, password: string): Promise<UserCredential> {
-    return signInWithEmailAndPassword(this.auth, email, password);
-  }
-
-  loginWithGoogle() {
-
-  }
 
   async onSubmit(form: NgForm) {
     console.log('submitting...');
@@ -120,16 +73,15 @@ export class SignupComponent implements OnInit {
     try {
       this.isLoading = true;
 
-      await this.authService.signup({
-        invitationId: this.invitationId,
-        firstName: this.firstName,
-        lastName: this.lastName,
-        registry: this.registry,
-        displayName: this.displayName,
-        email: this.userEmail,
+      await this.auth.signup({
+        firstName: form.value.firstName,
+        lastName: form.value.lastName,
+        registry: form.value.registry,
+        displayName: form.value.displayName,
+        email: form.value.userEmail,
         password: form.value.password,
         phoneNumber: form.value.phone,
-        roles: this.newUser.roles
+        roles: this.roles
       });
       console.log('user created');
 

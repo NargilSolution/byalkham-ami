@@ -1,124 +1,103 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 <div *ngIf="!isLoading">
 
-  <mat-card *ngIf="user">
+  <mat-card *ngIf="auth.isAuth">
     <h2>Хэрэглэгчээр нэвтэрсэн байна</h2>
     <p>Хэрэв шинэ хэрэглэгч үүсгэх гэж байгаа бол нэвтэрсэн хэрэглэгчийг системээс гаргана уу</p>
   </mat-card>
-  <form #f="ngForm" fxLayout="column" (ngSubmit)="onSubmit(f)" *ngIf="userEmail && !user">
-    <mat-form-field>
-      <input type="text"
-      matInput
-      placeholder="Овог"
-      [(ngModel)]="lastName"
-      name="lastName"
-      pattern="[ЁҮӨА-Я]{1,1}[ёүөа-я]{1,20}([-]{1,1}[АЭИОУӨҮ]{1,1}[ёүөа-я]{1,20})?"
-      (keypress)="onNameKeyPress($event)"
-      required
-      #lastNameInput="ngModel">
-      <mat-error *ngIf="lastNameInput.hasError('required')">Овог заавал оруулна</mat-error>
-      <mat-error *ngIf="lastNameInput.hasError('pattern')">Том үсгээр эхлүүлж криллээр бичнэ</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input type="text"
-      matInput
-      placeholder="Нэр"
-      [(ngModel)]="firstName"
-      name="firstName"
-      pattern="[ЁҮӨА-Я]{1,1}[ёүөа-я]{1,20}([-]{1,1}[АЭИОУӨҮ]{1,1}[ёүөа-я]{1,20})?"
-      (keypress)="onNameKeyPress($event)"
-      required
-      #firstNameInput="ngModel">
-      <mat-error *ngIf="firstNameInput.hasError('required')">Нэр заавал оруулна</mat-error>
-      <mat-error *ngIf="firstNameInput.hasError('pattern')">Том үсгээр эхлүүлж криллээр бичнэ</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input type="text"
-      matInput
-      placeholder="Регистр"
-      [(ngModel)]="registry"
-      name="registry"
-      pattern="[ЁёҮүӨөА-я]{2,2}[0-9]{8,8}"
-      (keypress)="keyPressAlphanumeric($event)"
-      (ngModelChange)="onRegistryChange()"
-      required
-      #registryInput="ngModel">
-      <mat-error *ngIf="registryInput.hasError('required')">Регистр заавал оруулна</mat-error>
-      <mat-error *ngIf="registryInput.hasError('pattern')">Регистр буруу байна</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input type="text"
-      matInput
-      placeholder="Харагдах нэр"
-      matTooltip="Хэрэглэгч нэвтрэхэд цэсний баруун буланд харагдана"
-      [(ngModel)]="displayName"
-      name="displayName"
-      pattern="[ЁҮӨА-Я]{1,1}[ёүөа-я]{1,20}([-]{1,1}[АЭИОУӨҮ]{1,1}[ёүөа-я]{1,20})?"
-      (keypress)="onNameKeyPress($event)"
-      required
-      #displayInput="ngModel">
-      <mat-error *ngIf="displayInput.hasError('required')">Харагдах нэр заавал оруулна</mat-error>
-      <mat-error *ngIf="displayInput.hasError('pattern')">Том үсгээр эхлүүлж криллээр бичнэ</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input type="text"
-      matInput
-      placeholder="Мэйл хаяг"
-      [(ngModel)]="userEmail"
-      name="email"
-      disabled
-      required>
-    </mat-form-field>
-    <mat-form-field>
-      <input type="number"
-      matInput
-      placeholder="Утасны дугаар"
-      ngModel
-      name="phone"
-      pattern="[89][0-9]{7,7}"
-      required
-      #phoneInput="ngModel">
-      <mat-error *ngIf="phoneInput.hasError('required')">Утасны дугаар заавал оруулна</mat-error>
-      <mat-error *ngIf="phoneInput.hasError('pattern')">Зөв дугаар оруулна уу</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input type="password"
-      matInput
-      placeholder="Нууц үг"
-      ngModel
-      name="password"
-      pattern="[A-z0-9@$!%*#?&]{6,12}"
-      required
-      minlength="6"
-      #pwInput="ngModel">
-      <mat-error>6-12 тэмдэгт оруулна</mat-error>
-      <mat-error *ngIf="pwInput.hasError('pattern')">Зөвхөн англи үсэг, цифр ашиглана</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input type="password"
-      matInput
-      placeholder="Нууц үг давтан оруулна"
-      ngModel
-      name="passwordConfirm"
-      pattern="[A-z0-9@$!%*#?&]{6,12}"
-      required
-      minlength="6"
-      #pwConfirmInput="ngModel">
-      <mat-error *ngIf="pwInput != pwConfirmInput">Нууц үг тохирохгүй байна</mat-error>
-    </mat-form-field>
-    <section fxLayout="column" fxLayoutAlign="center">
-      <p class="label">Хэрэгчид олгож буй эрхүүд:</p>
-        <mat-checkbox color="primary" [(ngModel)]="newUser.roles.admin" name="adminCheck" disabled *ngIf="newUser.roles.admin">Админ</mat-checkbox>
-        <mat-checkbox color="primary" [(ngModel)]="newUser.roles.editor" name="editorCheck" disabled *ngIf="newUser.roles.editor">Нийтлэх, засах</mat-checkbox>
-        <mat-checkbox color="primary" [(ngModel)]="newUser.roles.subscriber" name="subscriberCheck" disabled *ngIf="newUser.roles.subscriber">Үзэх, захиалах</mat-checkbox>
-        <mat-checkbox color="primary" [(ngModel)]="newUser.roles.assistant" name="assistant" disabled *ngIf="newUser.roles.assistant">Туслагч</mat-checkbox>
-        <mat-checkbox color="primary" [(ngModel)]="newUser.roles.athlete" name="athlete" disabled *ngIf="newUser.roles.athlete">Тамирчин</mat-checkbox>
-        <mat-checkbox color="primary" [(ngModel)]="newUser.roles.accountant" name="accountant" disabled *ngIf="newUser.roles.accountant">Нягтлан</mat-checkbox>
-        <mat-checkbox color="primary" [(ngModel)]="newUser.roles.coach" name="coach" disabled *ngIf="newUser.roles.coach">Дасгалжуулагч</mat-checkbox>
-        <!-- <mat-checkbox color="primary" [(ngModel)]="newUser.roles.coach" name="coach">Дасгалжуулагч</mat-checkbox> -->
-    </section>
-    <br>
-    <button mat-raised-button color="primary" [disabled]="f.invalid">Хэрэглэгч үүсгэ</button>
-  </form>
+  <mat-card *ngIf="!auth.isAuth">
+    <form #f="ngForm" fxLayout="column" (ngSubmit)="onSubmit(f)">
+      <h2>Хэрэглэгчийн бүртгэл</h2>
+      <p class="warning">Зөвхөн урьдчилж утасны дугаараа бүртгүүлсэн тохиолдолд хэрэглэгч үүсгэнэ</p>
+      <mat-form-field>
+        <input type="text"
+        matInput
+        placeholder="Овог"
+        ngModel
+        name="lastName"
+        pattern="[ЁҮӨА-Я]{1,1}[ёүөа-я]{1,20}([-]{1,1}[АЭИОУӨҮ]{1,1}[ёүөа-я]{1,20})?"
+        (keypress)="onNameKeyPress($event)"
+        required
+        #lastNameInput="ngModel">
+        <mat-error *ngIf="lastNameInput.hasError('required')">Овог заавал оруулна</mat-error>
+        <mat-error *ngIf="lastNameInput.hasError('pattern')">Том үсгээр эхлүүлж криллээр бичнэ</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input type="text"
+        matInput
+        placeholder="Нэр"
+        ngModel
+        name="firstName"
+        pattern="[ЁҮӨА-Я]{1,1}[ёүөа-я]{1,20}([-]{1,1}[АЭИОУӨҮ]{1,1}[ёүөа-я]{1,20})?"
+        (keypress)="onNameKeyPress($event)"
+        required
+        #firstNameInput="ngModel">
+        <mat-error *ngIf="firstNameInput.hasError('required')">Нэр заавал оруулна</mat-error>
+        <mat-error *ngIf="firstNameInput.hasError('pattern')">Том үсгээр эхлүүлж криллээр бичнэ</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input type="text"
+        matInput
+        placeholder="Харагдах нэр"
+        matTooltip="Хэрэглэгч нэвтрэхэд цэсний баруун буланд харагдана"
+        ngModel
+        name="displayName"
+        pattern="[ЁҮӨА-Я]{1,1}[ёүөа-я]{1,20}([-]{1,1}[АЭИОУӨҮ]{1,1}[ёүөа-я]{1,20})?"
+        (keypress)="onNameKeyPress($event)"
+        required
+        #displayInput="ngModel">
+        <mat-error *ngIf="displayInput.hasError('required')">Харагдах нэр заавал оруулна</mat-error>
+        <mat-error *ngIf="displayInput.hasError('pattern')">Том үсгээр эхлүүлж криллээр бичнэ</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input type="text"
+        matInput
+        placeholder="Мэйл хаяг"
+        ngModel
+        name="email"
+        required>
+      </mat-form-field>
+      <mat-form-field>
+        <input type="number"
+        matInput
+        placeholder="Утасны дугаар"
+        ngModel
+        name="phone"
+        pattern="[89][0-9]{7,7}"
+        (ngModelChange)="checkPhoneNumber(phoneInput.value)"
+        required
+        #phoneInput="ngModel">
+        <mat-error *ngIf="phoneInput.hasError('required')">Утасны дугаар заавал оруулна</mat-error>
+        <mat-error *ngIf="phoneInput.hasError('pattern')">Зөв дугаар оруулна уу</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input type="password"
+        matInput
+        placeholder="Нууц үг"
+        ngModel
+        name="password"
+        pattern="[A-z0-9@$!%*#?&]{6,12}"
+        required
+        minlength="6"
+        #pwInput="ngModel">
+        <mat-error>6-12 тэмдэгт оруулна</mat-error>
+        <mat-error *ngIf="pwInput.hasError('pattern')">Зөвхөн англи үсэг, цифр ашиглана</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input type="password"
+        matInput
+        placeholder="Нууц үг давтан оруулна"
+        ngModel
+        name="passwordConfirm"
+        pattern="[A-z0-9@$!%*#?&]{6,12}"
+        required
+        minlength="6"
+        #pwConfirmInput="ngModel">
+        <mat-error *ngIf="pwInput != pwConfirmInput">Нууц үг тохирохгүй байна</mat-error>
+      </mat-form-field>
+      <br>
+      <button mat-raised-button color="primary" [disabled]="f.invalid">Хэрэглэгч үүсгэ</button>
+    </form>
+  </mat-card>
 
 </div>
