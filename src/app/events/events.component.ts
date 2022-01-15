@@ -14,6 +14,7 @@ import { SportType } from '../models/sport.model';
 import { DeleteEventComponent } from './delete-event/delete-event.component';
 import { orderBy } from '@angular/fire/firestore';
 import { Profile } from '../models/user.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-events',
@@ -36,7 +37,8 @@ export class EventsComponent implements OnInit, AfterViewInit {
     public matDialog: MatDialog,
     private db: FirestoreService,
     public auth: AuthService,
-    private router: Router
+    private router: Router,
+    private snack: MatSnackBar
     ) {
     this.getScreenSize();
   }
@@ -82,8 +84,12 @@ export class EventsComponent implements OnInit, AfterViewInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  viewCompetition(doc: Event) {
-    this.router.navigate(['events/'+doc.id]);
+  viewEvent(doc: Event) {
+    if (this.auth.isAuth) {
+      this.router.navigate(['events/'+doc.id]);
+    } else {
+      this.snack.open('Хэрэглэгчээр нэвтрээгүй байна', '', { duration: 2000});
+    }
   }
 
   viewRange(doc: Event) {

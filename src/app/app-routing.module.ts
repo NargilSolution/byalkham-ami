@@ -20,6 +20,7 @@ import { SportsComponent } from './selections/sports/sports.component';
 import { ViewEventComponent } from './events/view-event/view-event.component';
 import { EditEventPhotosComponent } from './events/edit-event-photos/edit-event-photos.component';
 import { EditEventVideosComponent } from './events/edit-event-videos/edit-event-videos.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -36,8 +37,8 @@ const routes: Routes = [
   { path: 'event-types', component: EventTypesComponent, canActivate: [AdminGuard] },
   { path: 'sport-types', component: SportsComponent, canActivate: [AdminGuard] },
   { path: 'events', component: EventsComponent },
-  { path: 'events/add', component: AddEventComponent},
-  { path: 'events/:eventId', component: ViewEventComponent},
+  { path: 'events/add', component: AddEventComponent, canActivate: [AdminGuard]},
+  { path: 'events/:eventId', component: ViewEventComponent, canActivate: [AuthGuard]},
   { path: 'events/:eventId/edit-photos', component: EditEventPhotosComponent, canActivate: [AdminGuard]},
   { path: 'events/:eventId/edit-videos', component: EditEventVideosComponent, canActivate: [AdminGuard]},
   { path: 'athletes', component: AthletesComponent},

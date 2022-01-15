@@ -4,27 +4,27 @@
 
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef mat-sort-header>Нэр</mat-header-cell>
-    <mat-cell *matCellDef="let element" (click)="viewCompetition(element)">{{ element.name }}</mat-cell>
+    <mat-cell *matCellDef="let element" (click)="viewEvent(element)">{{ element.name }}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="type">
     <mat-header-cell *matHeaderCellDef mat-sort-header>Төрөл</mat-header-cell>
-    <mat-cell *matCellDef="let element" (click)="viewCompetition(element)">{{ element.type }}</mat-cell>
+    <mat-cell *matCellDef="let element" (click)="viewEvent(element)">{{ element.type }}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="date">
     <mat-header-cell *matHeaderCellDef mat-sort-header>Огноо</mat-header-cell>
-    <mat-cell *matCellDef="let element" (click)="viewCompetition(element)">{{ element.dateRange }}</mat-cell>
+    <mat-cell *matCellDef="let element" (click)="viewEvent(element)">{{ element.dateRange }}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="place">
     <mat-header-cell *matHeaderCellDef mat-sort-header>Байршил</mat-header-cell>
-    <mat-cell *matCellDef="let element" (click)="viewCompetition(element)">{{ element.place }}</mat-cell>
+    <mat-cell *matCellDef="let element" (click)="viewEvent(element)">{{ element.place }}</mat-cell>
   </ng-container>
 
     <ng-container matColumnDef="organizer">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Зохион байгуулагч</mat-header-cell>
-      <mat-cell *matCellDef="let element" (click)="viewCompetition(element)">{{ element.organizer }}</mat-cell>
+      <mat-cell *matCellDef="let element" (click)="viewEvent(element)">{{ element.organizer }}</mat-cell>
     </ng-container>
 
   <ng-container matColumnDef="status">
@@ -45,7 +45,7 @@
         <!-- <button mat-menu-item (click)="viewCompetition(element)">Үзэх</button> -->
         <button mat-menu-item (click)="viewRange(element)">Гараанууд</button>
         <button mat-menu-item (click)="viewPhotos(element)" *ngIf="element.status == 'finished'">Зургууд</button>
-        <button mat-menu-item (click)="viewApplication(element)" *ngIf="auth.isAdmin">Мэдүүлэг</button>
+        <button mat-menu-item (click)="viewEvent(element)" *ngIf="auth.isAdmin">Мэдүүлэг</button>
         <button mat-menu-item (click)="showEditDialog(element.id)" *ngIf="auth.isAdmin">Засах</button>
         <button mat-menu-item (click)="eventResults(element)" *ngIf="element.status == 'finished'">Дүнгүүд</button>
         <button mat-menu-item (click)="editEventPhotos(element)" *ngIf="element.status == 'finished' && auth.isAdmin">Фото засвар</button>

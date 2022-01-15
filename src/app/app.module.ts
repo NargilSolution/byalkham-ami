@@ -82,6 +82,7 @@ import { EditEventInfoComponent } from './events/edit-event-info/edit-event-info
 import { EditEventVideosComponent } from './events/edit-event-videos/edit-event-videos.component';
 import { EventVideosComponent } from './events/event-videos/event-videos.component';
 import { EditEventVideoDocComponent } from './events/edit-event-videos/edit-event-video-doc/edit-event-video-doc.component';
+import { AuthGuard } from './auth/auth.guard';
 
 
 @NgModule({
@@ -160,6 +161,7 @@ import { EditEventVideoDocComponent } from './events/edit-event-videos/edit-even
     AuthService,
     AdminGuard,
     EditorGuard,
+    AuthGuard,
     MatDatepicker,
     WindowService
   ],
