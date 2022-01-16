@@ -8,6 +8,7 @@ export interface Roles {
 }
 
 export interface UserInvitation {
+  id?: number;
   firstName: string;
   displayName: string;
   email?: string;
