@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "cli": {
-    "analytics": "fcb06b36-56bb-4b76-92d9-4442fd995d4f"
+    "analytics": "15458980-7f7a-4899-b9da-7acad4401fd5"
   },
   "version": 1,
   "newProjectRoot": "projects",
@@ -10,7 +10,29 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss"
+          "style": "scss",
+          "skipTests": true
+        },
+        "@schematics/angular:class": {
+          "skipTests": true
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true
+        },
+        "@schematics/angular:guard": {
+          "skipTests": true
+        },
+        "@schematics/angular:interceptor": {
+          "skipTests": true
+        },
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:resolver": {
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
         },
         "@schematics/angular:application": {
           "strict": true
@@ -35,9 +57,7 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
-              "src/styles.scss",
-              "./node_modules/quill/dist/quill.core.css",
-              "./node_modules/quill/dist/quill.snow.css"
+              "src/styles.scss"
             ],
             "scripts": []
           },
@@ -47,7 +67,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "5mb",
-                  "maximumError": "7mb"
+                  "maximumError": "10mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -117,19 +137,11 @@
             "prerender": false,
             "ssr": false,
             "browserTarget": "full-life:build:production",
-            "firebaseProject": "byalkham-ami",
-            "firebaseHostingSite": "byalkham-ami"
+            "firebaseProject": "fullchurch",
+            "firebaseHostingSite": "fullchurch"
           }
         }
       }
-    }
-  },
-  "schematics": {
-    "@schematics/angular:component": {
-      "skipTests": true
-    },
-    "@schematics/angular:service": {
-      "skipTests": true
     }
   },
   "defaultProject": "full-life"

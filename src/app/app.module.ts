@@ -56,15 +56,12 @@ import { SettingsComponent } from './admin/settings/settings.component';
 import { AddEventComponent } from './events/add-event/add-event.component';
 import { MatDatepicker } from '@angular/material/datepicker';
 // Events
-import { SportsComponent } from './selections/sports/sports.component';
 import { EventTypesComponent } from './selections/event-types/event-types.component';
 import { EventStatusesComponent } from './selections/event-statuses/event-statuses.component';
 import { EditEventComponent } from './events/edit-event/edit-event.component';
 import { DeleteEventComponent } from './events/delete-event/delete-event.component';
 import { AddEventTypeComponent } from './selections/event-types/add-event-type/add-event-type.component';
 import { EditEventTypeComponent } from './selections/event-types/edit-event-type/edit-event-type.component';
-import { AddSportComponent } from './selections/sports/add-sport/add-sport.component';
-import { EditSportComponent } from './selections/sports/edit-sport/edit-sport.component';
 import { ViewEventComponent } from './events/view-event/view-event.component';
 import { EditEventPhotosComponent } from './events/edit-event-photos/edit-event-photos.component';
 import { EditEventPhotoDocComponent } from './events/edit-event-photos/edit-event-photo-doc/edit-event-photo-doc.component';
@@ -107,15 +104,12 @@ import { AuthGuard } from './auth/auth.guard';
     EventsComponent,
     SettingsComponent,
     AddEventComponent,
-    SportsComponent,
     EventTypesComponent,
     AddEventTypeComponent,
     EventStatusesComponent,
     EditEventComponent,
     DeleteEventComponent,
     EditEventTypeComponent,
-    AddSportComponent,
-    EditSportComponent,
     ViewEventComponent,
     EditEventPhotosComponent,
     EditEventPhotoDocComponent,

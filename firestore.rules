@@ -41,39 +41,39 @@ service cloud.firestore {
     match /workouts/{workoutId} {
       allow read;
       allow create: if request.auth.uid != null;
-      allow update: if getRole('coach') || request.auth.uid == resource.data.createdId || request.auth.uid == resource.data.athlete.id;
-      allow delete: if getRole('coach') || request.auth.uid == resource.data.athlete.id;
+      allow update: if getRole('manager') || request.auth.uid == resource.data.createdId || request.auth.uid == resource.data.athlete.id;
+      allow delete: if getRole('manager') || request.auth.uid == resource.data.athlete.id;
 
     }
 
     match /exercises/{exerciseId} {
       allow read;
       allow create: if request.auth.uid != null;
-      allow update: if getRole('coach') || request.auth.uid == resource.data.createdId || request.auth.uid == resource.data.athlete.id;
-      allow delete: if getRole('coach') || request.auth.uid == resource.data.athlete.id;
+      allow update: if getRole('manager') || request.auth.uid == resource.data.createdId || request.auth.uid == resource.data.athlete.id;
+      allow delete: if getRole('manager') || request.auth.uid == resource.data.athlete.id;
 
     }
 
     match /places/{placeId} {
       allow read;
-      allow create: if getRole('coach');
-      allow update: if getRole('coach');
+      allow create: if getRole('manager');
+      allow update: if getRole('manager');
       allow delete: if getRole('admin');
 
     }
 
     match /preference/{preferenceId} {
       allow read;
-      allow create: if getRole('coach');
-      allow update: if getRole('coach');
+      allow create: if getRole('manager');
+      allow update: if getRole('manager');
       allow delete: if getRole('admin');
 
     }
 
     match /schedules/{scheduleId} {
       allow read;
-      allow create: if getRole('coach');
-      allow update: if getRole('coach');
+      allow create: if getRole('manager');
+      allow update: if getRole('manager');
       allow delete: if getRole('admin');
 
     }

@@ -48,3 +48,15 @@ export interface ProfileUpdateData {
   uid: string;
   update: ProfileUpdate;
 }
+export interface NewUserData {
+  userId: string;
+  invitationId: string;
+  firstName: string;
+  lastName: string;
+  registry: string;
+  displayName: string;
+  email: string;
+  phoneNumber: number;
+  roles: Roles;
+  photoURL?: string;
+}

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Functions, httpsCallable } from '@angular/fire/functions';
-import { NewUserData } from 'functions/src/models/user.model';
+import { NewUserData } from 'src/app/models/user.model';
 import { ProfileUpdateData } from '../models/user.model';
 
 @Injectable({

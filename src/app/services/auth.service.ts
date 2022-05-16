@@ -15,7 +15,7 @@ import {
 } from '@angular/fire/auth';
 import { doc, docData, Firestore, setDoc } from '@angular/fire/firestore';
 import { linkWithPopup } from '@firebase/auth';
-import { NewUserData } from 'functions/src/models/user.model';
+import { NewUserData } from 'src/app/models/user.model';
 import { authState } from 'rxfire/auth';
 import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators'

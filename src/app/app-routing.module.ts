@@ -16,7 +16,6 @@ import { InviteUserComponent } from './admin/users/invite-user/invite-user.compo
 import { SettingsComponent } from './admin/settings/settings.component';
 import { AddEventComponent } from './events/add-event/add-event.component';
 import { EventTypesComponent } from './selections/event-types/event-types.component';
-import { SportsComponent } from './selections/sports/sports.component';
 import { ViewEventComponent } from './events/view-event/view-event.component';
 import { EditEventPhotosComponent } from './events/edit-event-photos/edit-event-photos.component';
 import { EditEventVideosComponent } from './events/edit-event-videos/edit-event-videos.component';
@@ -32,7 +31,6 @@ const routes: Routes = [
     { path: 'settings', component: SettingsComponent },
   ] },
   { path: 'event-types', component: EventTypesComponent, canActivate: [AdminGuard] },
-  { path: 'sport-types', component: SportsComponent, canActivate: [AdminGuard] },
   { path: 'events', component: EventsComponent },
   { path: 'events/add', component: AddEventComponent, canActivate: [AdminGuard]},
   { path: 'events/:eventId', component: ViewEventComponent, canActivate: [AuthGuard]},
