@@ -25,6 +25,7 @@ export interface Profile {
   photoURL?: string;
   registry: string;
   phoneNumber: number;
+  phoneLogin?: boolean;
   roles: Roles;
 }
 export interface SignupData {

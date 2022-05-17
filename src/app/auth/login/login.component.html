@@ -1,43 +1,63 @@
-<form #f="ngForm" fxLayout="column" fxLayoutAlign="center center" (ngSubmit)="onSubmit(f)">
-  <h2>{{ title }}</h2>
-  <p>Хэрэв өөр аргаар нэвтрэх шаардлагатай бол солино уу </p>
-  <mat-form-field *ngIf="loginMethod == 'mailPassword'">
-    <input type="text"
-    matInput
-    placeholder="Мэйл хаяг"
-    ngModel
-    name="email"
-    required>
-  </mat-form-field>
-  <mat-form-field *ngIf="loginMethod == 'mailPassword'">
-    <input type="password"
-    matInput
-    placeholder="Нууц үг"
-    ngModel
-    name="password"
-    required>
-  </mat-form-field>
-  <mat-form-field *ngIf="loginMethod == 'phone'">
-    <input type="number"
-    matInput
-    placeholder="Утасны дугаар"
-    [(ngModel)]="phoneNumber"
-    name="phone"
-    required>
-  </mat-form-field>
-  <div id="recaptcha-container" [hidden]="loginMethod != 'phone'"></div>
-  <mat-form-field *ngIf="loginMethod == 'phone' && codeSent">
-    <input type="text"
-    matInput
-    placeholder="Баталгаажуулах код"
-    [(ngModel)]="smsCode"
-    name="code"
-    required>
-  </mat-form-field>
-  <!-- <button id="sign-in-button" type="button" mat-raised-button color="primary" [disabled]="f.invalid">Код илгээ</button> -->
-  <br>
-  <button mat-raised-button color="primary" [disabled]="f.invalid">Нэвтрэх</button>
-  <br>
-  <p class="change-method-title">Нэвтрэх арга солих:</p>
-  <button type="button" mat-button color="primary" (click)="changeMethod()">{{ methodChangeTitle }}</button>
-</form>
+<ng-container *ngIf="user | async; else login">
+  <mat-card class="notification">
+    Та системд нэвтэрсэн байна!
+  </mat-card>
+</ng-container>
+
+<ng-template #login>
+  <form #f="ngForm" fxLayout="column" fxLayoutAlign="center center" (ngSubmit)="onSubmit(f)">
+    <h2>Системд нэвтрэх</h2>
+    <p>Аль нэг аргыг сонгоно уу</p>
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px" fxLayoutGap.xs="10px">
+      <button type="button" mat-raised-button color="primary" [ngClass]="loginMethod == 'phone' ? 'active' : ''" (click)="changeMethod('phone')">Утасны дугаараар код авах</button>
+      <button type="button" mat-raised-button color="primary" [ngClass]="loginMethod == 'mailPassword' ? 'active' : ''" (click)="changeMethod('mailPassword')">Мэйл, нууц үг оруулах</button>
+      <button type="button" mat-raised-button color="primary" [ngClass]="loginMethod == 'mailLink' ? 'active' : ''" (click)="changeMethod('mailLink')">Мэйлээр линк авах</button>
+    </div>
+    <h3>{{ method }}</h3>
+    <mat-form-field *ngIf="loginMethod == 'mailPassword' || loginMethod == 'mailLink'">
+      <input type="text"
+      matInput
+      placeholder="Мэйл хаяг"
+      [(ngModel)]="email"
+      name="email"
+      required>
+    </mat-form-field>
+    <mat-form-field *ngIf="loginMethod == 'mailPassword'">
+      <input type="password"
+      matInput
+      placeholder="Нууц үг"
+      ngModel
+      name="password"
+      required>
+    </mat-form-field>
+    <mat-form-field *ngIf="loginMethod == 'phone'">
+      <input type="number"
+      matInput
+      placeholder="Утасны дугаар"
+      [(ngModel)]="phoneNumber"
+      name="phone"
+      (ngModelChange)="onPhoneChanged()"
+      #phoneInput="ngModel"
+      required>
+    </mat-form-field>
+    <div id="recaptcha-container" [hidden]="loginMethod != 'phone' || !phoneExist || codeSent"></div>
+    <mat-form-field *ngIf="loginMethod == 'phone' && codeSent">
+      <input type="text"
+      matInput
+      placeholder="Баталгаажуулах код"
+      [(ngModel)]="smsCode"
+      name="code"
+      required>
+    </mat-form-field>
+    <!-- <button id="sign-in-button" type="button" mat-raised-button color="primary" [disabled]="f.invalid">Код илгээ</button> -->
+    <br>
+    <button mat-raised-button color="primary" [disabled]="f.invalid || (loginMethod == 'phone' && !codeSent)">Нэвтрэх</button>
+    <div *ngIf="emailSent">
+      Таны мэйл хаягаар нэвтрэх холбоос илгээгдлээ!
+    </div>
+    <div *ngIf="errorMessage">
+      {{ errorMessage }}
+    </div>
+    <br>
+  </form>
+</ng-template>

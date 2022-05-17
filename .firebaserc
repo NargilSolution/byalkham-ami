@@ -1,14 +1,14 @@
 {
   "targets": {
-    "fullchurch": {
+    "byalkham-ami": {
       "hosting": {
         "full-life": [
-          "fullchurch"
+          "byalkham-ami"
         ]
       }
     }
   },
   "projects": {
-    "default": "fullchurch"
+    "default": "byalkham-ami"
   }
 }

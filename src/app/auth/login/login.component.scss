@@ -1,5 +1,7 @@
-h2 {
-  text-align: center;
+
+h3 {
+  margin-top: 10px;
+  margin-bottom: 0;
 }
 form {
   margin-top: 20px !important;
@@ -12,3 +14,16 @@ form {
   margin-bottom: 0;
 
 }
+.active {
+  background-color: salmon;
+}
+.notification {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  color: aquamarine;
+  max-width: 600px;
+  margin: auto;
+  transform: translate(-30%, -50%)
+}
+
